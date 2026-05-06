@@ -2,20 +2,22 @@
 mod panic;
 
 use std::mem::ManuallyDrop;
-use unions::{FooUnionHeap, FooUnion, FooEnum, FooStruct, separator};
+use unions::{FooUnionHeap, FooUnion, FooEnum, FooStruct, separator, FooUnionHeapC};
 use crate::panic::outer;
 
 #[allow(unreachable_patterns)]
 fn main() {
 
     println!("MEMORY");
-    println!("Size of \n heap allocated union: {}, \n enum: {}, \n struct {}",
+    println!("Size of \n heap allocated union: {}, \n union with C representation {}, \n enum: {}, \n struct {}",
              size_of::<FooUnionHeap>(),
+             size_of::<FooUnionHeapC>(),
              size_of::<FooEnum>(),
              size_of::<FooStruct>()
     );
-    println!("Size of value for \n union {}, \n enum {}",
+    println!("Size of value for \n union {}, \n union with C representation {}, \n enum {}",
              size_of_val(&FooUnionHeap { z: ManuallyDrop::new("HelloWorld1".to_string()) }),
+             size_of_val(&FooUnionHeapC { z: ManuallyDrop::new("HelloWorld1".to_string()) }),
              size_of_val(&FooEnum::Z("test".to_string())));
     separator();
 
