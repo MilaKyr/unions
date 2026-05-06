@@ -1,5 +1,5 @@
 use std::mem::ManuallyDrop;
-use super::types::FooUnionHeap;
+use unions::FooUnionHeap;
 
 pub fn outer() {
     let mut my_union_h = FooUnionHeap { z: ManuallyDrop::new("HelloWorld1".to_string()) };

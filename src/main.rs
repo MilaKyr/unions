@@ -1,10 +1,8 @@
-mod benchmark;
+
 mod panic;
-mod types;
 
 use std::mem::ManuallyDrop;
-use crate::benchmark::run_benchmark;
-use crate::types::{FooUnionHeap, FooUnion, FooEnum, FooStruct, separator};
+use unions::{FooUnionHeap, FooUnion, FooEnum, FooStruct, separator};
 use crate::panic::outer;
 
 #[allow(unreachable_patterns)]
@@ -19,11 +17,6 @@ fn main() {
     println!("Size of value for \n union {}, \n enum {}",
              size_of_val(&FooUnionHeap { z: ManuallyDrop::new("HelloWorld1".to_string()) }),
              size_of_val(&FooEnum::Z("test".to_string())));
-    separator();
-
-    println!("SPEED");
-    run_benchmark();
-
     separator();
 
     println!("Match statements");
@@ -63,5 +56,7 @@ fn main() {
     println!("This code will panic!");
     outer();
 
+    println!("Unaccessible!");
 }
+
 
